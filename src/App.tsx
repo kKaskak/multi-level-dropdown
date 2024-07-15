@@ -1,8 +1,13 @@
+import { DropdownMenu } from './common';
+import { singleLevel, multiLevel } from './data';
 
 const App = () => {
 
     return (
-        <div>App</div>
+        <div>
+            <DropdownMenu options={singleLevel} />
+            <DropdownMenu options={multiLevel} />
+        </div>
     );
 }
 
