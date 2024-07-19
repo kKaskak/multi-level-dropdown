@@ -1,27 +1,27 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import styles from './DropdownMenu.less';
+import styles from './DropdownMenu.module.scss';
 import classNames from 'classnames';
 
 type Props = {
-	options: { id: number, label: string, default?: boolean, hidden?: boolean }[];
+	options: DropdownOptions;
 	defaultOption: string;
 	disabled?: boolean;
 	onOpen?: () => void;
 	onClose?: () => void;
-	onSelect?: (id: string) => void;
+	onSelect?: (id: number) => void;
 };
 
 const DropdownMenu = ({ options, defaultOption, disabled, onOpen, onClose, onSelect }: Props) => {
 	const [isOpen, setOpen] = useState(false);
 	const [items] = useState(options);
-	const [selectedItem, setSelectedItem] = useState<string | null>(null);
+	const [selectedItem, setSelectedItem] = useState<number | null>(null);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
 	const toggleDropdown = useCallback(() => {
 		setOpen((prevIsOpen) => !prevIsOpen);
 	}, []);
 
-	const handleItemClick = useCallback((id: string) => {
+	const handleItemClick = useCallback((id: number) => {
 		if (typeof onSelect === 'function') {
 			onSelect(id);
 		}
@@ -60,9 +60,9 @@ const DropdownMenu = ({ options, defaultOption, disabled, onOpen, onClose, onSel
 	}, []);
 
 	return (
-		<div className={styles['dropdown-container']} ref={dropdownRef} disabled={disabled}>
+		<div className={styles.dropdownContainer} ref={dropdownRef}>
 			<div
-				className={classNames(styles['dropdownHeader'], { [styles['open']]: isOpen })}
+				className={classNames(styles.dropdownHeader, { [styles.open]: isOpen })}
 				onClick={toggleDropdown}
 				role='button'
 				tabIndex={0}
@@ -75,25 +75,25 @@ const DropdownMenu = ({ options, defaultOption, disabled, onOpen, onClose, onSel
 				{selectedItem ? items.find((item) => item.id === selectedItem).label : defaultOption}
 				{/* <ArrowDown style={{ transform: `rotate(${isOpen ? '0deg' : '-90deg'})` }} /> */}
 			</div>
-			<div className={classNames(styles['dropdownBody'], {[styles['open']]: isOpen})} role='listbox'>
-				{
-					items.filter((item) => !item.hidden).map((item) => (
+			<div className={classNames(styles.dropdownBody, { [styles.open]: isOpen })} role='listbox'>
+				{items
+					.filter((item) => !item.hidden)
+					.map((item) => (
 						<div
-							className={classNames(styles['dropdownItem'], {[styles['selected']]: item.id === selectedItem})}
+							className={classNames(styles.dropdownItem, { [styles.selected]: item.id === selectedItem })}
 							onClick={() => handleItemClick(item.id)}
 							key={item.id}
 							role='option'
-							tabIndex='0'
+							tabIndex={0}
 							onKeyDown={(e) => {
 								if (e.key === 'Enter' || e.key === 'Space') handleItemClick(item.id);
 							}}
 							aria-selected={item.id === selectedItem}
 						>
-							<span className={classNames(styles['dropdownItemDot'], {[styles['selected']]: item.id === selectedItem})}>• </span>
+							<span className={classNames(styles.dropdownItemDot, { [styles.selected]: item.id === selectedItem })}>• </span>
 							{item.label}
 						</div>
-					))
-				}
+					))}
 			</div>
 		</div>
 	);

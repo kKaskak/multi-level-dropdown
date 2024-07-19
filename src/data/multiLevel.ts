@@ -1,4 +1,4 @@
-export const multiLevel = [
+export const multiLevel: DropdownOptions = [
     {
         id: 1,
         label: 'Item 1',

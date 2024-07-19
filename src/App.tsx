@@ -5,7 +5,7 @@ const App = () => {
 
     return (
         <div>
-            <DropdownMenu options={singleLevel} />
+            {/* <DropdownMenu options={singleLevel} /> */}
             <DropdownMenu options={multiLevel} />
         </div>
     );
