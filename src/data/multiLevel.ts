@@ -83,6 +83,20 @@ export const multiLevel: DropdownOptions = [
         label: 'Season 4',
         value: 'Value 4',
         destination: 'Destination 4',
+        level: [
+            {
+                id: 1,
+                label: 'Episode 1',
+                value: 'Value 1',
+                destination: 'Destination 1',
+            },
+            {
+                id: 2,
+                label: 'Episode 2',
+                value: 'Value 2',
+                destination: 'Destination 2',
+            }
+        ],
     },
     {
         id: 5,
