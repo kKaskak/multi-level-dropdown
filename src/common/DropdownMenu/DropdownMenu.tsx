@@ -1,40 +1,52 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from './DropdownMenu.module.scss';
 import classNames from 'classnames';
+import { ArrowDown } from '../../assets';
 
 type Props = {
 	options: DropdownOptions;
 	defaultOption: string;
-	disabled?: boolean;
 	onOpen?: () => void;
 	onClose?: () => void;
-	onSelect?: (id: number) => void;
+	onSelect?: (item: Item) => void;
 };
 
-const DropdownMenu = ({ options, defaultOption, disabled, onOpen, onClose, onSelect }: Props) => {
+const DropdownMenu = ({ options, defaultOption, onOpen, onClose, onSelect }: Props) => {
 	const [isOpen, setOpen] = useState(false);
 	const [level, setLevel] = useState<number>(0);
-	const [items] = useState(options);
-	const [selectedItem, setSelectedItem] = useState<number | null>(null);
+	const [items, setItems] = useState<DropdownOptions>(options);
+	const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
 	const toggleDropdown = useCallback(() => {
 		setOpen((prevIsOpen) => !prevIsOpen);
 	}, []);
 
-	const handleItemClick = useCallback((id: number) => {
+	const handleItemClick = useCallback((item: Item) => {
 		if (typeof onSelect === 'function') {
-			onSelect(id);
+			onSelect(item);
 		}
-		setSelectedItem((prevSelectedItem) => (prevSelectedItem === id ? null : id));
-		toggleDropdown();
+
+		if (item.level) {
+			setLevel((prevLevel) => prevLevel + 1);
+			setItems(item.level);
+		} else {
+			setSelectedItem((prevSelectedItem) => (prevSelectedItem === item ? null : item));
+			toggleDropdown();
+		}
 	}, [toggleDropdown, onSelect]);
+
+	const onBackButtonClick = useCallback(() => {
+		setSelectedItem(null);
+		setLevel((prevLevel) => prevLevel - 1);
+		setItems(options);
+	}, [options]);
 
 	useEffect(() => {
 		if (!selectedItem && !defaultOption) {
 			const defaultItem = items.find((item) => item.default);
 			if (defaultItem) {
-				setSelectedItem(defaultItem.id);
+				setSelectedItem(defaultItem);
 			}
 		}
 	}, [items, selectedItem, defaultOption]);
@@ -50,8 +62,8 @@ const DropdownMenu = ({ options, defaultOption, disabled, onOpen, onClose, onSel
 	}, [isOpen, onOpen, onClose]);
 
 	useEffect(() => {
-		const handleClickOutside = (event: any) => {
-			if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+		const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
 				setOpen(false);
 			}
 		};
@@ -73,26 +85,39 @@ const DropdownMenu = ({ options, defaultOption, disabled, onOpen, onClose, onSel
 				aria-haspopup='listbox'
 				aria-expanded={isOpen}
 			>
-				{selectedItem ? items.find((item) => item.id === selectedItem).label : defaultOption}
-				{/* <ArrowDown style={{ transform: `rotate(${isOpen ? '0deg' : '-90deg'})` }} /> */}
+				{selectedItem ? items.find((item) => item?.id === selectedItem?.id)?.label : defaultOption}
+				<ArrowDown style={{ transform: `rotate(${isOpen ? '0deg' : '-90deg'})`, fill: '#fff' }} />
 			</div>
 			<div className={classNames(styles.dropdownBody, { [styles.open]: isOpen })} role='listbox'>
+				{
+					level > 0 && (
+						<div className={styles.dropdownItem} onClick={onBackButtonClick}>
+							<ArrowDown style={{ transform: `rotate(-270deg)`, marginLeft: '0.5rem', fill: '#fff' }} />
+							Back
+						</div>
+					)
+				}
 				{items
 					.filter((item) => !item.hidden)
 					.map((item) => (
 						<div
-							className={classNames(styles.dropdownItem, { [styles.selected]: item.id === selectedItem })}
-							onClick={() => handleItemClick(item.id)}
+							className={classNames(styles.dropdownItem, { [styles.selected]: item.id === selectedItem?.id })}
+							onClick={() => handleItemClick(item)}
 							key={item.id}
 							role='option'
 							tabIndex={0}
 							onKeyDown={(e) => {
-								if (e.key === 'Enter' || e.key === 'Space') handleItemClick(item.id);
+								if (e.key === 'Enter' || e.key === 'Space') handleItemClick(item);
 							}}
-							aria-selected={item.id === selectedItem}
+							aria-selected={item.id === selectedItem?.id}
 						>
-							<span className={classNames(styles.dropdownItemDot, { [styles.selected]: item.id === selectedItem })}>• </span>
+							<span className={classNames(styles.dropdownItemDot, { [styles.selected]: item.id === selectedItem?.id })}>• </span>
 							{item.label}
+							{
+								item.level ?
+									<ArrowDown style={{ transform: `rotate(-90deg)`, marginLeft: '0.5rem', fill: '#fff'}} />
+									: null
+							}
 						</div>
 					))}
 			</div>
