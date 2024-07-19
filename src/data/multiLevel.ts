@@ -4,6 +4,7 @@ export const multiLevel: DropdownOptions = [
         label: 'Item 1',
         value: 'Value 1',
         destination: 'Destination 1',
+        default: true,
         level: [
             {
                 id: 1,
