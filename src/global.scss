@@ -1,0 +1,48 @@
+@import './sizes.scss';
+
+$border-radius: 0.5rem;
+$font-weight-bold: 700;
+$font-weight-mid: 600;
+$font-weight-semi-mid: 500;
+$font-weight-normal: 400;
+$font-size-title: 2rem;
+$font-size-subtitle: 1.25rem;
+$font-size-small-subtitle: 0.775rem;
+$font-size-normal: 1rem;
+$font-size-small: 0.625rem;
+
+:root {
+	--border-radius: #{$border-radius};
+	--font-weight-bold: #{$font-weight-bold};
+	--font-weight-mid: #{$font-weight-mid};
+	--font-weight-semi-mid: #{$font-weight-semi-mid};
+	--font-weight-normal: #{$font-weight-normal};
+	--font-size-title: #{$font-size-title};
+	--font-size-subtitle: #{$font-size-subtitle};
+	--font-size-small-subtitle: #{$font-size-small-subtitle};
+	--font-size-normal: #{$font-size-normal};
+	--font-size-small: #{$font-size-small};
+	--primary-color: #363942;
+	--secondary-color: #B0B0B0;
+	--background-color: #ffffff;
+	--item-color: #F8F6FF;
+	--overlay-color: rgba(0, 0, 0, 0.05);
+	--active-background-color: rgba(255, 255, 255, 0.5);
+	--primary-accent-color: #645AF1;
+	--secondary-accent-color: #1155D9;
+	--background-gradient: linear-gradient(318.22deg, #1155D9 11.14%, #1C55DC 16.92%, #5058EB 43.34%, #655AF1 55.72%, #7B5BF5 73.88%);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--primary-color: #e6e6e6;
+		--secondary-color: #B0B0B0;
+		--background-color: #141414;
+		--section-background-color: #171717;
+		--item-color: #1a1a1a;
+		--overlay-color: rgba(255, 255, 255, 0.05);
+		--active-background-color: rgba(255, 255, 255, 0.01);
+		--label-background-color: #FEF6D81A;
+		--route-box-shadow: -6px 0px 10px -9px rgba(255,255,255,1);
+	}
+}

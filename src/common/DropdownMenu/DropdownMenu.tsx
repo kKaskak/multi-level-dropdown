@@ -13,6 +13,7 @@ type Props = {
 
 const DropdownMenu = ({ options, defaultOption, disabled, onOpen, onClose, onSelect }: Props) => {
 	const [isOpen, setOpen] = useState(false);
+	const [level, setLevel] = useState<number>(0);
 	const [items] = useState(options);
 	const [selectedItem, setSelectedItem] = useState<number | null>(null);
 	const dropdownRef = useRef<HTMLDivElement>(null);
