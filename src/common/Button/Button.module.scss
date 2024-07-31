@@ -1,0 +1,13 @@
+.button {
+    color: var(--primary-foreground-color);
+    background-color: var(--button-background-color);
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+
+    &:hover {
+        background: #28254b;
+    }
+}

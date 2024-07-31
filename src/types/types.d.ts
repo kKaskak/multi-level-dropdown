@@ -1,19 +1,9 @@
-type DropdownOptions = {
-    id: number;
+type MultiselectMenuOption = {
+    id?: number;
     label: string;
-    value: string;
-    destination: string;
+    value: number;
+    destination?: string;
     default?: boolean;
     hidden?: boolean;
-    level?: Item[];
-}[];
-
-type Item = {
-    id: number;
-    label: string;
-    value: string;
-    destination: string;
-    default?: boolean;
-    hidden?: boolean;
-    level?: Item[];
+    level?: MultiselectMenuOption[];
 };

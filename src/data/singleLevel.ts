@@ -1,8 +1,8 @@
-export const singleLevel = [
+export const singleLevel: MultiselectMenuOption[] = [
     {
         id: 1,
         label: 'object1',
-        value: 'object1',
+        value: 1,
         destination: 'https://dummy-link1.com',
         hidden: false,
         default: true,
@@ -10,35 +10,35 @@ export const singleLevel = [
     {
         id: 2,
         label: 'object2',
-        value: 'object2',
+        value: 2,
         destination: 'https://dummy-link2.com',
         hidden: false,
     },
     {
         id: 3,
         label: 'object3',
-        value: 'object3',
+        value: 3,
         destination: 'https://dummy-link3.com',
         hidden: false,
     },
     {
         id: 4,
         label: 'object4',
-        value: 'object4',
+        value: 4,
         destination: 'https://dummy-link4.com',
         hidden: false,
     },
     {
         id: 5,
         label: 'object5',
-        value: 'object5',
+        value: 5,
         destination: 'https://dummy-link5.com',
         hidden: false,
     },
     {
         id: 6,
         label: 'default',
-        value: 'default',
+        value: 6,
         destination: 'https://dummy-link-default.com',
         hidden: false,
     },

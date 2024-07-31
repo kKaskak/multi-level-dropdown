@@ -1,0 +1,37 @@
+
+
+.multiselectMenu {
+    position: relative;
+    min-width: 8.5rem;
+    overflow: visible;
+    border-radius: 2.75rem;
+
+    &.disabled {
+        pointer-events: none;
+        opacity: 0.3;
+    }
+
+    .multiselectButton {
+        color: var(--primary-foreground-color);
+        padding: 0.75rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0 0.5rem;
+        border-radius: 2.75rem;
+
+        .icon {
+            width: 1rem;
+            color: var(--primary-foreground-color);
+            opacity: 0.6;
+
+            &.open {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &:hover {
+        background-color: var(--overlay-color);
+    }
+}
