@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef, useLayoutEffect } from 'react';
+import { useCallback, useState, useRef, useLayoutEffect } from 'react';
 import { multiLevel, singleLevel } from './data';
 import MultiselectMenu from './MultiselectMenu';
 
