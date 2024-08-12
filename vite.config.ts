@@ -14,5 +14,6 @@ export default () => {
                 '@': path.resolve(__dirname, 'src'),
             }
         },
+        base: '/multi-level-dropdown/',
     });
 };
